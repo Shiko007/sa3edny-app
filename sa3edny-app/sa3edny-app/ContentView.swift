@@ -31,7 +31,10 @@ struct ContentView: View {
             LazyVGrid(columns: columns, spacing: spacing) {
                 ForEach(platforms, id: \.name) {platform in
                     NavigationLink(value: platform) {
-                        Label(platform.name, systemImage: platform.imageName)
+                        VStack{
+                            Image(systemName: platform.imageName)
+                            Text(platform.name)
+                        }.font(.title2)
                             .frame(width: buttonWidth, height: buttonHeight)
                             .foregroundColor(platform.color)
                             .background(Color.gray.opacity(0.2))
@@ -42,10 +45,9 @@ struct ContentView: View {
             .navigationTitle("Services")
                 .navigationDestination(for: Platform.self){ platform in
                     ZStack{
-                        platform.color.ignoresSafeArea()
-                        VStack{
-                            Label(platform.name, systemImage: platform.imageName).font(.largeTitle).bold()
-                        }.padding()
+                        Image(systemName: platform.imageName)
+                            .font(.system(size: spacing * 2))
+                            .padding()
                     }
                 }
         }
