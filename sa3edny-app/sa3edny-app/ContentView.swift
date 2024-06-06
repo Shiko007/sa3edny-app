@@ -34,11 +34,12 @@ struct ContentView: View {
                         VStack{
                             Image(systemName: platform.imageName)
                             Text(platform.name)
-                        }.font(.title2)
-                            .frame(width: buttonWidth, height: buttonHeight)
-                            .foregroundColor(platform.color)
-                            .background(Color.gray.opacity(0.2))
-                            .cornerRadius(10)
+                        }
+                        .font(.system(size: spacing * 0.6))
+                    .frame(width: buttonWidth, height: buttonHeight)
+                    .foregroundColor(platform.color)
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(spacing * 0.3)
                     }
                 }
             }
@@ -47,6 +48,7 @@ struct ContentView: View {
                     ZStack{
                         Image(systemName: platform.imageName)
                             .font(.system(size: spacing * 2))
+                            .foregroundColor(platform.color)
                             .padding()
                     }
                 }
