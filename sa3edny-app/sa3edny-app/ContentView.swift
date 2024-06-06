@@ -16,15 +16,28 @@ struct ContentView: View {
                                  .init(name: "Cleaner", imageName: "washer.fill", color: .teal),
                                  .init(name: "Gardner", imageName: "tree.fill", color: .green)]
     
+    let screenWidth = UIScreen.main.bounds.width
+    let screenHeight = UIScreen.main.bounds.height
+    
+    
     var body: some View {
+        let spacing = screenWidth * 0.10
+        let columns = [
+            GridItem(.flexible(), spacing: spacing),
+            GridItem(.flexible(), spacing: spacing)]
+        let buttonWidth = (screenWidth - 2 * spacing) / 2
+        let buttonHeight = screenHeight * 0.1
         NavigationStack {
-            ForEach(platforms, id: \.name) {platform in
-                VStack{
+            LazyVGrid(columns: columns, spacing: spacing) {
+                ForEach(platforms, id: \.name) {platform in
                     NavigationLink(value: platform) {
                         Label(platform.name, systemImage: platform.imageName)
+                            .frame(width: buttonWidth, height: buttonHeight)
                             .foregroundColor(platform.color)
+                            .background(Color.gray.opacity(0.2))
+                            .cornerRadius(10)
                     }
-                }.padding()
+                }
             }
             .navigationTitle("Services")
                 .navigationDestination(for: Platform.self){ platform in
