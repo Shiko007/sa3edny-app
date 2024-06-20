@@ -60,7 +60,6 @@
 		2E8A846E2C10BFFA00708867 = {
 			isa = PBXGroup;
 			children = (
-				2E98671C2C247F9300381768 /* User */,
 				2E8A84792C10BFFA00708867 /* sa3edny-app */,
 				2E8A84782C10BFFA00708867 /* Products */,
 				2E753A742C1B62A2001A5554 /* Frameworks */,
@@ -78,6 +77,7 @@
 		2E8A84792C10BFFA00708867 /* sa3edny-app */ = {
 			isa = PBXGroup;
 			children = (
+				2E98671C2C247F9300381768 /* User */,
 				2E8A847A2C10BFFA00708867 /* sa3edny_appApp.swift */,
 				2E8A847C2C10BFFA00708867 /* ContentView.swift */,
 				2E15C1D52C21EF91003720B8 /* AuthenticationView.swift */,
