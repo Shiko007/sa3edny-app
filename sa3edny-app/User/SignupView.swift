@@ -109,6 +109,7 @@ struct SignupView: View {
       .disabled(!viewModel.isValid)
       .frame(maxWidth: .infinity)
       .buttonStyle(.borderedProminent)
+      .tint(.brown)
 
       HStack {
         Text("Already have an account?")

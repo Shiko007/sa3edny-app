@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ServicesView: View {
     @StateObject var authViewModel = AuthenticationViewModel()
+    @State private var displayUserView = false
     
     var body: some View {
         let spacing = screenWidth * ServiceButtons().spacingFactor
@@ -47,10 +48,12 @@ struct ServicesView: View {
             .navigationTitle("Services")
             .toolbar {
                 ToolbarItem(placement: .principal) {
+                    NavigationLink(destination: UserView()){
                     HStack {
                         Image(systemName: "person.crop.circle")
                         Text(userID)
                             .font(.headline)
+                        }
                     }
                 }
             }

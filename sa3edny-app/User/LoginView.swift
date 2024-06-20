@@ -93,6 +93,7 @@ struct LoginView: View {
       .disabled(!viewModel.isValid)
       .frame(maxWidth: .infinity)
       .buttonStyle(.borderedProminent)
+      .tint(.brown)
 
       HStack {
         Text("Don't have an account yet?")
