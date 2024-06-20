@@ -8,11 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var authViewModel = AuthenticationViewModel()
+    
     var body: some View {
-        LoginView()
+        if(authViewModel.authenticationState != .authenticated){
+            AuthenticationView()
+                .environmentObject(AuthenticationViewModel())
+        }
+        else if(authViewModel.authenticationState == .authenticated){
+            ServicesView()
+        }
     }
 }
-    
-#Preview {
-    ContentView()
+
+struct ContentView_Previews: PreviewProvider {
+  static var previews: some View {
+    Group {
+        ContentView()
+        ContentView()
+        .preferredColorScheme(.dark)
+    }
+    .environmentObject(AuthenticationViewModel())
+  }
 }

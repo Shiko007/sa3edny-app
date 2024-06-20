@@ -1,8 +1,8 @@
 //
-//  LoginView.swift
+//  SignupView.swift
 //  sa3edny-app
 //
-//  Created by Sherif Yasser on 13.06.24.
+//  Created by Sherif Yasser on 18.06.24.
 //
 
 import SwiftUI
@@ -11,17 +11,18 @@ import Combine
 private enum FocusableField: Hashable {
   case email
   case password
+  case confirmPassword
 }
 
-struct LoginView: View {
+struct SignupView: View {
   @EnvironmentObject var viewModel: AuthenticationViewModel
   @Environment(\.dismiss) var dismiss
 
   @FocusState private var focus: FocusableField?
 
-  private func signInWithEmailPassword() {
+  private func signUpWithEmailPassword() {
     Task {
-      if await viewModel.signInWithEmailPassword() == true {
+      if await viewModel.signUpWithEmailPassword() == true {
         dismiss()
       }
     }
@@ -29,12 +30,12 @@ struct LoginView: View {
 
   var body: some View {
     VStack {
-      Image(systemName: "person.badge.key")
+      Image(systemName: "key.viewfinder")
         .resizable()
         .aspectRatio(contentMode: .fit)
         .frame(minHeight: 300, maxHeight: 400)
         .foregroundColor(.brown)
-      Text("Login")
+      Text("Sign up")
         .font(.largeTitle)
         .fontWeight(.bold)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -42,7 +43,7 @@ struct LoginView: View {
 
       HStack {
         Image(systemName: "at")
-              .foregroundColor(.brown)
+            .foregroundColor(.brown)
         TextField("Email", text: $viewModel.email)
           .textInputAutocapitalization(.never)
           .disableAutocorrection(true)
@@ -58,17 +59,32 @@ struct LoginView: View {
 
       HStack {
         Image(systemName: "lock")
-              .foregroundColor(.brown)
+            .foregroundColor(.brown)
         SecureField("Password", text: $viewModel.password)
           .focused($focus, equals: .password)
-          .submitLabel(.go)
+          .submitLabel(.next)
           .onSubmit {
-            signInWithEmailPassword()
+            self.focus = .confirmPassword
           }
       }
       .padding(.vertical, 6)
       .background(Divider(), alignment: .bottom)
       .padding(.bottom, 8)
+
+      HStack {
+        Image(systemName: "lock")
+            .foregroundColor(.brown)
+        SecureField("Confirm password", text: $viewModel.confirmPassword)
+          .focused($focus, equals: .confirmPassword)
+          .submitLabel(.go)
+          .onSubmit {
+            signUpWithEmailPassword()
+          }
+      }
+      .padding(.vertical, 6)
+      .background(Divider(), alignment: .bottom)
+      .padding(.bottom, 8)
+
 
       if !viewModel.errorMessage.isEmpty {
         VStack {
@@ -77,9 +93,9 @@ struct LoginView: View {
         }
       }
 
-      Button(action: signInWithEmailPassword) {
+      Button(action: signUpWithEmailPassword) {
         if viewModel.authenticationState != .authenticating {
-          Text("Login")
+          Text("Sign up")
             .padding(.vertical, 8)
             .frame(maxWidth: .infinity)
         }
@@ -95,10 +111,10 @@ struct LoginView: View {
       .buttonStyle(.borderedProminent)
 
       HStack {
-        Text("Don't have an account yet?")
+        Text("Already have an account?")
               .foregroundStyle(Color.brown)
         Button(action: { viewModel.switchFlow() }) {
-          Text("Sign up")
+          Text("Log in")
             .fontWeight(.semibold)
             .foregroundColor(.blue)
         }
@@ -111,11 +127,11 @@ struct LoginView: View {
   }
 }
 
-struct LoginView_Previews: PreviewProvider {
+struct SignupView_Previews: PreviewProvider {
   static var previews: some View {
     Group {
-      LoginView()
-      LoginView()
+      SignupView()
+      SignupView()
         .preferredColorScheme(.dark)
     }
     .environmentObject(AuthenticationViewModel())

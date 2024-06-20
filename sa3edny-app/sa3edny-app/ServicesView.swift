@@ -8,26 +8,27 @@
 import SwiftUI
 
 struct ServicesView: View {
+    @StateObject var authViewModel = AuthenticationViewModel()
+    
     var body: some View {
         let spacing = screenWidth * ServiceButtons().spacingFactor
-        //let columns = [GridItem(.flexible(), spacing: spacing),GridItem(.flexible(), spacing: spacing)]
-        let buttonWidth = (screenWidth - (ServiceButtons().buttonWidthMultiple * spacing)) / ServiceButtons().buttonWidthFactor
-        let buttonHeight = screenHeight * ServiceButtons().buttonHeightFactor
+        let userID = authViewModel.user?.email ?? "unknown"
         
         NavigationStack {
             ScrollView{
-                ForEach(ServiceButtons().services, id: \.name) {platform in
-                    NavigationLink(value: platform) {
+                ForEach(ServiceButtons().services, id: \.name) {service in
+                    NavigationLink(value: service) {
                         HStack{
-                            Image(systemName: platform.imageName)
+                            Image(systemName: service.imageName)
+                                .font(.system(size: spacing * ServiceButtons().buttonTextSizeFactor))
                                 .padding(screenWidth * ServiceButtons().buttonContentsPadFactor)
                             Spacer()
-                            Text(platform.name)
+                            Text(service.name)
                                 .font(.system(size: spacing * ServiceButtons().buttonTextSizeFactor))
                                 .padding(screenWidth * ServiceButtons().buttonContentsPadFactor)
                         }
-                        .frame(width: buttonWidth, height: buttonHeight)
-                        .foregroundColor(platform.color)
+                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                        .foregroundColor(service.color)
                         .background(Color.gray.opacity(ServiceButtons().buttonBGOpacityFactor))
                         .cornerRadius(spacing * ServiceButtons().buttonCornerRadFactor)
                     }
@@ -44,6 +45,15 @@ struct ServicesView: View {
             .scrollIndicators(.hidden)
             .padding()
             .navigationTitle("Services")
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    HStack {
+                        Image(systemName: "person.crop.circle")
+                        Text(userID)
+                            .font(.headline)
+                    }
+                }
+            }
             Spacer()
         }
     }
