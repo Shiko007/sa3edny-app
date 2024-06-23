@@ -19,8 +19,8 @@ class ServiceButtons {
                                  .init(name: "Cleaner", imageName: "washer.fill", color: .teal),
                                  .init(name: "Gardner", imageName: "tree.fill", color: .green),
                                  .init(name: "Other", imageName: "wrench.and.screwdriver.fill", color: .orange)
-                            ]
-
+    ]
+    
     let spacingFactor: CGFloat = 0.10
     let buttonWidthMultiple: CGFloat = 0.5
     let buttonWidthFactor: CGFloat = 1

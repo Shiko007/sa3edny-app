@@ -14,9 +14,9 @@ struct UserView: View {
     
     private func deleteAccount() {
         Task {
-          if await authViewModel.deleteAccount() == true {
-            dismiss()
-          }
+            if await authViewModel.deleteAccount() == true {
+                dismiss()
+            }
         }
     }
     
@@ -44,7 +44,7 @@ struct UserView: View {
                     .padding(.vertical, 8)
                     .frame(maxWidth: .infinity)
             }
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity, minHeight: 50)
             .buttonStyle(.borderedProminent)
             .tint(.red)
             .padding(.vertical, 6)
@@ -54,7 +54,7 @@ struct UserView: View {
                     .padding(.vertical, 8)
                     .frame(maxWidth: .infinity)
             }
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity, minHeight: 50)
             .buttonStyle(.borderedProminent)
             .tint(.brown)
             .padding(.vertical, 6)
@@ -62,10 +62,10 @@ struct UserView: View {
         }
         .padding()
         .confirmationDialog("Deleting your account is permanent. Do you want to delete your account?",
-                                isPresented: $presentingConfirmationDialog, titleVisibility: .visible) {
-                Button("Delete Account", role: .destructive, action: deleteAccount)
-                Button("Cancel", role: .cancel, action: { })
-            }
+                            isPresented: $presentingConfirmationDialog, titleVisibility: .visible) {
+            Button("Delete Account", role: .destructive, action: deleteAccount)
+            Button("Cancel", role: .cancel, action: { })
+        }
     }
 }
 

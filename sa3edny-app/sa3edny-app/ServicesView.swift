@@ -49,10 +49,10 @@ struct ServicesView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     NavigationLink(destination: UserView()){
-                    HStack {
-                        Image(systemName: "person.crop.circle")
-                        Text(userID)
-                            .font(.headline)
+                        HStack {
+                            Image(systemName: "person.crop.circle")
+                            Text(userID)
+                                .font(.headline)
                         }
                     }
                 }
